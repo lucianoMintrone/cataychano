@@ -2,7 +2,7 @@
 
 Web de invitación estática (un solo `index.html`).
 
-- **Producción:** https://cata-y-chano.vercel.app (proyecto Vercel `cata-y-chano`, team personal de Luciano)
+- **Producción:** https://cataychano.vercel.app (proyecto Vercel `cataychano`, team personal de Luciano, conectado a GitHub `lucianoMintrone/cataychano`)
 - **Fecha:** 24.10.2026 · 15:30hs Iglesia Michael Ham · 18hs Quinta El Tata
 
 ## Secciones
@@ -14,7 +14,7 @@ Cuenta regresiva · Agenda con mapas · RSVP (un form por persona) · Regalos (a
 - Para volcar a Google Sheets (una fila por confirmación): pegar la URL del Apps Script en la variable `SHEET_URL` del script en `index.html`
 
 ## Deploy
-Vercel, sitio estático sin build. `vercel --prod` o deploy desde git.
+Vercel, sitio estático sin build. Push a `main` en GitHub deploya automáticamente.
 
 ## Pendientes
 - [ ] Reemplazar ilustración SVG por foto real

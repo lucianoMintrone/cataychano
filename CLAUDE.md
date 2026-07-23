@@ -9,7 +9,7 @@ Static wedding invitation site for Cata & Chano (24.10.2026, Buenos Aires). The 
 ## Develop and deploy
 
 - Preview locally with any static server, e.g. `python3 -m http.server 4173` (a `static-site` config exists in `.claude/launch.json`).
-- Production: https://cata-y-chano.vercel.app — Vercel project `cata-y-chano` on Luciano's personal team. Deploy with `vercel --prod` or via git push (no build configured).
+- Production: https://cataychano.vercel.app — Vercel project `cataychano` on Luciano's personal team, connected to GitHub `lucianoMintrone/cataychano`. Pushing to `main` deploys automatically (no build configured).
 
 ## Structure of index.html
 
