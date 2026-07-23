@@ -6,6 +6,8 @@
 <title>Cata &amp; Chano — ¡Nos casamos!</title>
 <meta property="og:title" content="Cata & Chano — ¡Nos casamos!">
 <meta property="og:description" content="24.10.2026 · Iglesia Michael Ham · Quinta El Tata. Confirmá tu asistencia acá.">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -75,7 +77,6 @@
   .cd-box{text-align:center;min-width:76px}
   .cd-num{font-family:'Space Mono',monospace;font-size:clamp(32px,7vw,52px);font-weight:700;color:var(--sea-deep)}
   .cd-label{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--ink-soft)}
-  .cd-note{text-align:center;font-style:italic;font-size:19px;color:var(--ink-soft);margin-top:14px}
 
   /* ---------- SECTIONS ---------- */
   section{padding:64px 0}
@@ -142,6 +143,18 @@
   footer .mono{display:block;margin-top:14px;font-size:11px;letter-spacing:.3em;text-transform:uppercase;font-style:normal}
 
   .wave-divider{display:block;margin:0 auto;width:120px;opacity:.55}
+
+  /* ---------- SCROLL EFFECTS ---------- */
+  .postcard{transform:rotate(-1.2deg) translateY(var(--plx,0px))}
+  .reveal{opacity:0;transform:translateY(26px);transition:opacity .9s ease,transform .9s cubic-bezier(.22,.61,.36,1)}
+  .reveal.visible{opacity:1;transform:none}
+  .reveal.wave-divider{opacity:0}
+  .reveal.wave-divider.visible{opacity:.55}
+  .reveal-d1{transition-delay:.15s}
+  @media(prefers-reduced-motion:reduce){
+    .reveal{opacity:1;transform:none;transition:none}
+    .reveal.wave-divider{opacity:.55}
+  }
 </style>
 </head>
 <body>
@@ -220,40 +233,38 @@
   </header>
 
   <!-- COUNTDOWN -->
-  <div class="countdown" id="countdown">
+  <div class="countdown reveal" id="countdown">
     <div class="cd-box"><div class="cd-num" id="cd-d">–</div><div class="cd-label">días</div></div>
     <div class="cd-box"><div class="cd-num" id="cd-h">–</div><div class="cd-label">horas</div></div>
     <div class="cd-box"><div class="cd-num" id="cd-m">–</div><div class="cd-label">min</div></div>
-    <div class="cd-box"><div class="cd-num" id="cd-s">–</div><div class="cd-label">seg</div></div>
   </div>
-  <p class="cd-note" id="cd-note">Falta cada vez menos (y todavía no sabemos qué ponernos)</p>
 
   <!-- AGENDA -->
   <section id="agenda">
-    <h2 class="sec-title">El plan</h2>
+    <h2 class="sec-title reveal">El plan</h2>
     <div class="agenda">
-      <div class="evt">
+      <div class="evt reveal">
         <div class="hour">15:30</div>
         <h3>Ceremonia</h3>
         <p>Iglesia Michael Ham</p>
         <a class="map" href="https://maps.google.com/?q=Iglesia+Michael+Ham+Vicente+L%C3%B3pez" target="_blank" rel="noopener">Ver en el mapa</a>
       </div>
-      <div class="evt">
+      <div class="evt reveal reveal-d1">
         <div class="hour">18:00</div>
-        <h3>¡La party!</h3>
+        <h3>¡La fiesta!</h3>
         <p>Quinta El Tata</p>
         <a class="map" href="https://maps.google.com/?q=Quinta+El+Tata" target="_blank" rel="noopener">Ver en el mapa</a>
       </div>
     </div>
   </section>
 
-  <svg class="wave-divider" viewBox="0 0 120 14" xmlns="http://www.w3.org/2000/svg"><path d="M2 8 q13 -10 26 0 t26 0 t26 0 t26 0" stroke="#4f93a8" stroke-width="2.5" fill="none" stroke-linecap="round"/></svg>
+  <svg class="wave-divider reveal" viewBox="0 0 120 14" xmlns="http://www.w3.org/2000/svg"><path d="M2 8 q13 -10 26 0 t26 0 t26 0 t26 0" stroke="#4f93a8" stroke-width="2.5" fill="none" stroke-linecap="round"/></svg>
 
   <!-- RSVP -->
   <section id="rsvp">
-    <h2 class="sec-title">Confirmá tu asistencia</h2>
-    <div class="rsvp-card">
-      <p class="rsvp-intro">Decinos si venís así te guardamos una silla (y un choripán).<br>Si venís con acompañante, que complete su propio form.</p>
+    <h2 class="sec-title reveal">Confirmá tu asistencia</h2>
+    <div class="rsvp-card reveal reveal-d1">
+      <p class="rsvp-intro">Para una mejor organización, es muy importante que nos ayudes confirmando tu asistencia:</p>
       <form id="rsvp-form">
         <label for="nombre">Nombre y apellido</label>
         <input type="text" id="nombre" class="name-input" required placeholder="Nombre y apellido">
@@ -275,8 +286,8 @@
 
   <!-- REGALOS -->
   <section id="regalos">
-    <h2 class="sec-title">Regalos</h2>
-    <div class="gift">
+    <h2 class="sec-title reveal">Regalos</h2>
+    <div class="gift reveal reveal-d1">
       <p class="frase">El mejor regalo es que nos acompañes ese día…<br>pero si insistís, acá abajo te dejamos cómo.</p>
       <div class="alias-box">
         <code id="alias">CATA.CHANO.BODA</code>
@@ -285,8 +296,7 @@
     </div>
   </section>
 
-  <footer>
-    Nos conocimos arriba de una tabla. Ahora nos tiramos de cabeza.
+  <footer class="reveal">
     <span class="mono">Cata &amp; Chano · 24.10.2026</span>
   </footer>
 
@@ -299,19 +309,16 @@
     var diff = target - Date.now();
     if(diff <= 0){
       document.getElementById('countdown').innerHTML = '<div class="cd-num">¡Es hoy!</div>';
-      document.getElementById('cd-note').textContent = '¡Nos vemos en la pista!';
       return;
     }
     var d = Math.floor(diff/86400000),
         h = Math.floor(diff%86400000/3600000),
-        m = Math.floor(diff%3600000/60000),
-        s = Math.floor(diff%60000/1000);
+        m = Math.floor(diff%3600000/60000);
     document.getElementById('cd-d').textContent = d;
     document.getElementById('cd-h').textContent = ('0'+h).slice(-2);
     document.getElementById('cd-m').textContent = ('0'+m).slice(-2);
-    document.getElementById('cd-s').textContent = ('0'+s).slice(-2);
   }
-  tick(); setInterval(tick,1000);
+  tick(); setInterval(tick,30000);
 
   // RSVP: submit sin salir de la página (un form por persona)
   // Cuando esté el Apps Script del Google Sheet, pegar acá su URL
@@ -344,6 +351,30 @@
       fetch(FORMSUBMIT_URL, {method:'POST', body:fd, headers:{'Accept':'application/json'}}).then(done).catch(fail);
     }
   });
+
+  // Efectos al scrollear: secciones que aparecen + parallax suave de la postal
+  var reveals = document.querySelectorAll('.reveal');
+  if('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){ en.target.classList.add('visible'); io.unobserve(en.target); }
+      });
+    }, {threshold:.15, rootMargin:'0px 0px -40px 0px'});
+    reveals.forEach(function(el){ io.observe(el); });
+  } else {
+    reveals.forEach(function(el){ el.classList.add('visible'); });
+  }
+
+  if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+    var postcard = document.querySelector('.postcard'), plxTick = false;
+    window.addEventListener('scroll', function(){
+      if(plxTick) return; plxTick = true;
+      requestAnimationFrame(function(){
+        postcard.style.setProperty('--plx', Math.min(window.scrollY*.12, 60).toFixed(1)+'px');
+        plxTick = false;
+      });
+    }, {passive:true});
+  }
 
   function copiarAlias(){
     navigator.clipboard.writeText(document.getElementById('alias').textContent).then(function(){
