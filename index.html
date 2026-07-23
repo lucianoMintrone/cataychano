@@ -83,6 +83,13 @@
   .cd-box{text-align:center;min-width:76px}
   .cd-num{font-family:'Space Mono',monospace;font-size:clamp(32px,7vw,52px);font-weight:700;color:var(--sea-deep)}
   .cd-label{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--ink-soft)}
+  .cal-wrap{text-align:center;margin-top:34px}
+  .cal-btn{
+    display:inline-block;padding:13px 30px;
+    font-family:'Space Mono',monospace;font-size:12px;letter-spacing:.22em;text-transform:uppercase;
+    background:var(--sea-deep);color:#fff;text-decoration:none;border-radius:999px;transition:background .2s;
+  }
+  .cal-btn:hover{background:var(--accent)}
 
   /* ---------- SECTIONS ---------- */
   section{padding:64px 0}
@@ -146,7 +153,14 @@
   .copy:hover{border-color:var(--accent);color:var(--accent)}
 
   /* fotos */
-  .fotos-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
+  .fotos-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+  /* en desktop la grilla se ensancha más allá de la columna de texto */
+  @media(min-width:821px){
+    .fotos-grid{
+      width:min(1080px,calc(100vw - 48px));
+      margin-inline:calc((100% - min(1080px,calc(100vw - 48px)))/2);
+    }
+  }
   @media(max-width:820px){.fotos-grid{grid-template-columns:repeat(3,1fr)}}
   @media(max-width:520px){.fotos-grid{grid-template-columns:1fr}}
   .fotos-grid img{display:block;width:100%;aspect-ratio:1;object-fit:cover}
@@ -190,6 +204,9 @@
     <div class="cd-box"><div class="cd-num" id="cd-d">–</div><div class="cd-label">días</div></div>
     <div class="cd-box"><div class="cd-num" id="cd-h">–</div><div class="cd-label">horas</div></div>
     <div class="cd-box"><div class="cd-num" id="cd-m">–</div><div class="cd-label">min</div></div>
+  </div>
+  <div class="cal-wrap reveal reveal-d1">
+    <a class="cal-btn" target="_blank" rel="noopener" href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Casamiento%20Cata%20%26%20Chano&amp;dates=20261024T153000/20261025T020000&amp;ctz=America/Argentina/Buenos_Aires&amp;location=Iglesia%20Michael%20Ham%2C%20Vicente%20L%C3%B3pez&amp;details=15%3A30%20Ceremonia%20en%20Iglesia%20Michael%20Ham%20%C2%B7%2018%3A00%20%C2%A1La%20fiesta%21%20en%20Quinta%20El%20Tata.%20M%C3%A1s%20info%3A%20https%3A%2F%2Fcataychano.vercel.app">Agregar al calendario</a>
   </div>
 
   <!-- AGENDA -->
@@ -261,7 +278,6 @@
       <img src="fotos/montanas.jpeg" alt="En la montaña" loading="lazy">
       <img src="fotos/atardecer-montanas.jpeg" alt="Atardecer en la montaña" loading="lazy">
       <img src="fotos/quebrada.jpeg" alt="En la quebrada" loading="lazy">
-      <img src="fotos/selfie-anillo-mate.jpeg" alt="Selfie con anillo y mate" loading="lazy">
     </div>
   </section>
 
