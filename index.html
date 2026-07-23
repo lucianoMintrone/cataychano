@@ -122,20 +122,6 @@
     background:var(--sea-deep);color:#fff;border:none;cursor:pointer;transition:background .2s;
   }
   .btn:hover{background:var(--accent)}
-  .name-row{display:flex;gap:8px;margin-bottom:8px;align-items:center}
-  .name-row input{flex:1}
-  .rm{
-    font-family:'Space Mono',monospace;font-size:16px;line-height:1;
-    background:none;border:1px solid rgba(74,67,53,.25);color:var(--ink-soft);
-    width:34px;height:34px;cursor:pointer;flex:0 0 auto;
-  }
-  .rm:hover{border-color:#a05045;color:#a05045}
-  .add-person{
-    margin-top:4px;font-family:'Space Mono',monospace;font-size:12px;letter-spacing:.14em;
-    text-transform:uppercase;background:none;border:1px dashed var(--sea-deep);color:var(--sea-deep);
-    padding:9px 14px;cursor:pointer;
-  }
-  .add-person:hover{border-color:var(--accent);color:var(--accent)}
   .form-ok{display:none;text-align:center;font-size:22px;font-style:italic;padding:30px 0 10px}
 
   /* regalos */
@@ -247,14 +233,14 @@
     <h2 class="sec-title">El plan</h2>
     <div class="agenda">
       <div class="evt">
-        <div class="hour">15:00</div>
+        <div class="hour">15:30</div>
         <h3>Ceremonia</h3>
         <p>Iglesia Michael Ham</p>
         <a class="map" href="https://maps.google.com/?q=Iglesia+Michael+Ham+Vicente+L%C3%B3pez" target="_blank" rel="noopener">Ver en el mapa</a>
       </div>
       <div class="evt">
         <div class="hour">18:00</div>
-        <h3>¡Fiesta!</h3>
+        <h3>¡La party!</h3>
         <p>Quinta El Tata</p>
         <a class="map" href="https://maps.google.com/?q=Quinta+El+Tata" target="_blank" rel="noopener">Ver en el mapa</a>
       </div>
@@ -267,20 +253,17 @@
   <section id="rsvp">
     <h2 class="sec-title">Confirmá tu asistencia</h2>
     <div class="rsvp-card">
-      <p class="rsvp-intro">Decinos si venís así te guardamos una silla (y un choripán).</p>
+      <p class="rsvp-intro">Decinos si venís así te guardamos una silla (y un choripán).<br>Si venís con acompañante, que complete su propio form.</p>
       <form id="rsvp-form">
-        <label>¿Quiénes vienen? (nombre y apellido)</label>
-        <div id="names">
-          <div class="name-row"><input type="text" class="name-input" required placeholder="Nombre y apellido"></div>
-        </div>
-        <button type="button" class="add-person" onclick="addPerson()">+ Agregar otra persona</button>
-        <label for="asistencia">¿Vienen?</label>
+        <label for="nombre">Nombre y apellido</label>
+        <input type="text" id="nombre" class="name-input" required placeholder="Nombre y apellido">
+        <label for="asistencia">¿Venís?</label>
         <select id="asistencia" name="Asistencia" required>
           <option value="" disabled selected>Elegí una opción</option>
-          <option>¡Obvio que sí!</option>
-          <option>No podemos, los queremos igual</option>
+          <option>Siiii</option>
+          <option>No puedo, los quiero igual</option>
         </select>
-        <label for="dieta">Restricciones alimentarias (de cualquiera del grupo)</label>
+        <label for="dieta">Restricciones alimentarias</label>
         <input type="text" id="dieta" name="Dieta" placeholder="Vegetariano, celíaco, nada...">
         <label for="mensaje">Mensaje para los novios (opcional)</label>
         <textarea id="mensaje" name="Mensaje" placeholder="Tirá la mejor onda"></textarea>
@@ -294,7 +277,7 @@
   <section id="regalos">
     <h2 class="sec-title">Regalos</h2>
     <div class="gift">
-      <p class="frase">Tu presencia es el mejor regalo…<br>pero si insistís, acá abajo te dejamos cómo.</p>
+      <p class="frase">El mejor regalo es que nos acompañes ese día…<br>pero si insistís, acá abajo te dejamos cómo.</p>
       <div class="alias-box">
         <code id="alias">CATA.CHANO.BODA</code>
         <button class="copy" onclick="copiarAlias()">Copiar</button>
@@ -310,8 +293,8 @@
 </main>
 
 <script>
-  // Countdown al 24/10/2026 15:00 hora Argentina (UTC-3)
-  var target = new Date('2026-10-24T15:00:00-03:00').getTime();
+  // Countdown al 24/10/2026 15:30 hora Argentina (UTC-3)
+  var target = new Date('2026-10-24T15:30:00-03:00').getTime();
   function tick(){
     var diff = target - Date.now();
     if(diff <= 0){
@@ -330,26 +313,16 @@
   }
   tick(); setInterval(tick,1000);
 
-  // RSVP: submit sin salir de la página
-  // Cuando esté el Apps Script del Google Sheet, pegar acá su URL (cada nombre = una fila)
+  // RSVP: submit sin salir de la página (un form por persona)
+  // Cuando esté el Apps Script del Google Sheet, pegar acá su URL
   var SHEET_URL = '';
   var FORMSUBMIT_URL = 'https://formsubmit.co/luciano@amalgama.co';
-
-  function addPerson(){
-    var row = document.createElement('div');
-    row.className = 'name-row';
-    row.innerHTML = '<input type="text" class="name-input" required placeholder="Nombre y apellido">' +
-                    '<button type="button" class="rm" title="Quitar" onclick="this.parentNode.remove()">&times;</button>';
-    document.getElementById('names').appendChild(row);
-    row.querySelector('input').focus();
-  }
 
   document.getElementById('rsvp-form').addEventListener('submit', function(e){
     e.preventDefault();
     var form = this, btn = form.querySelector('.btn');
-    var nombres = Array.prototype.map.call(document.querySelectorAll('.name-input'), function(i){return i.value.trim();})
-                  .filter(function(n){return n;});
-    if(!nombres.length){ alert('Poné al menos un nombre.'); return; }
+    var nombre = document.getElementById('nombre').value.trim();
+    if(!nombre){ alert('Poné tu nombre.'); return; }
     btn.textContent = 'Enviando...'; btn.disabled = true;
     var asistencia = document.getElementById('asistencia').value,
         dieta = document.getElementById('dieta').value,
@@ -358,13 +331,13 @@
         fail = function(){ btn.textContent='Confirmar'; btn.disabled=false; alert('Hubo un error, probá de nuevo.'); };
     if(SHEET_URL){
       fetch(SHEET_URL, {method:'POST', mode:'no-cors',
-        body: JSON.stringify({nombres:nombres, asistencia:asistencia, dieta:dieta, mensaje:mensaje})
+        body: JSON.stringify({nombre:nombre, asistencia:asistencia, dieta:dieta, mensaje:mensaje})
       }).then(done).catch(fail);
     } else {
       var fd = new FormData();
       fd.append('_subject','Nueva confirmación — Casamiento Cata y Chano');
       fd.append('_captcha','false');
-      fd.append('Nombres', nombres.join(', '));
+      fd.append('Nombre', nombre);
       fd.append('Asistencia', asistencia);
       fd.append('Dieta', dieta);
       fd.append('Mensaje', mensaje);
