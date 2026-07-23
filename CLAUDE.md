@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this is
 
-Static wedding invitation site for Cata & Chano (24.10.2026, Buenos Aires). The site is a single `index.html` (inline CSS and JS) plus static assets: couple photos in `fotos/` (the hero postcard uses `fotos/surf-mar-faro.jpeg`) and the favicon PNGs. No build step, no dependencies, no framework, no tests. All content is in Spanish (Argentine voseo) — keep that tone in any copy changes.
+Static wedding invitation site for Cata & Chano (24.10.2026, Buenos Aires). The site is a single `index.html` (inline CSS and JS) plus static assets: couple photos in `fotos/` (the hero postcard uses `fotos/surf-mar-faro.jpeg`) and the favicon PNGs. No build step, no dependencies, no framework, no tests. All content is in Spanish (Argentine voseo) — keep that tone in any copy changes. Guests will open this mostly on phones — design and verify mobile-first (occasionally desktop).
 
 ## Develop and deploy
 
@@ -13,7 +13,7 @@ Static wedding invitation site for Cata & Chano (24.10.2026, Buenos Aires). The 
 
 ## Structure of index.html
 
-One page, sections in order: hero (postcard photo + date) → countdown → agenda (`#agenda`, ceremony/party cards with Google Maps links) → RSVP (`#rsvp`) → gifts (`#regalos`) → footer. Design tokens live as CSS variables in `:root` (paper/ink/sea/sand/accent palette); fonts are Cormorant Garamond (body) and Space Mono (labels/numbers, via the `.mono` pattern).
+One page, sections in order: hero (postcard photo + date) → countdown → agenda (`#agenda`, ceremony/party cards with Google Maps links) → RSVP (`#rsvp`) → gifts (`#regalos`) → photo grid (`#fotos`) → footer. Design tokens live as CSS variables in `:root` (paper/ink/sea/sand/accent palette); fonts are Cormorant Garamond (body) and Space Mono (labels/numbers, via the `.mono` pattern).
 
 ### RSVP flow (the only real logic)
 

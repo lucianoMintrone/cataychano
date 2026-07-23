@@ -139,6 +139,12 @@
   }
   .copy:hover{border-color:var(--accent);color:var(--accent)}
 
+  /* fotos */
+  .fotos-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
+  @media(max-width:820px){.fotos-grid{grid-template-columns:repeat(3,1fr)}}
+  @media(max-width:520px){.fotos-grid{grid-template-columns:1fr}}
+  .fotos-grid img{display:block;width:100%;aspect-ratio:1;object-fit:cover}
+
   footer{text-align:center;padding:60px 0 80px;font-style:italic;font-size:19px;color:var(--ink-soft)}
   footer .mono{display:block;margin-top:14px;font-size:11px;letter-spacing:.3em;text-transform:uppercase;font-style:normal}
 
@@ -234,6 +240,22 @@
         <code id="alias">CATA.CHANO.BODA</code>
         <button class="copy" onclick="copiarAlias()">Copiar</button>
       </div>
+    </div>
+  </section>
+
+  <!-- FOTOS -->
+  <section id="fotos">
+    <h2 class="sec-title reveal">Nosotros</h2>
+    <div class="fotos-grid reveal reveal-d1">
+      <img src="fotos/selfie-anillo-playa.jpeg" alt="Selfie mostrando el anillo" loading="lazy">
+      <img src="fotos/risas-lona.jpeg" alt="Risas en la lona" loading="lazy">
+      <img src="fotos/despues-del-surf.jpeg" alt="Después de surfear" loading="lazy">
+      <img src="fotos/abrazo-playa-atardecer.jpeg" alt="Abrazo en la playa al atardecer" loading="lazy">
+      <img src="fotos/atardecer-tablas.jpeg" alt="Atardecer con las tablas" loading="lazy">
+      <img src="fotos/montanas.jpeg" alt="En la montaña" loading="lazy">
+      <img src="fotos/atardecer-montanas.jpeg" alt="Atardecer en la montaña" loading="lazy">
+      <img src="fotos/quebrada.jpeg" alt="En la quebrada" loading="lazy">
+      <img src="fotos/selfie-anillo-mate.jpeg" alt="Selfie con anillo y mate" loading="lazy">
     </div>
   </section>
 
