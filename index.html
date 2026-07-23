@@ -277,14 +277,14 @@
   <section id="fotos">
     <h2 class="sec-title reveal">Nosotros</h2>
     <div class="fotos-grid reveal reveal-d1">
-      <img src="fotos/selfie-anillo-playa.jpeg" alt="Selfie mostrando el anillo" loading="lazy">
-      <img src="fotos/risas-lona.jpeg" alt="Risas en la lona" loading="lazy">
       <img src="fotos/despues-del-surf.jpeg" alt="Después de surfear" loading="lazy">
-      <img src="fotos/abrazo-playa-atardecer.jpeg" alt="Abrazo en la playa al atardecer" loading="lazy">
-      <img src="fotos/atardecer-tablas.jpeg" alt="Atardecer con las tablas" loading="lazy">
+      <img src="fotos/selfie-invierno.jpeg" alt="Selfie de invierno" loading="lazy">
       <img src="fotos/montanas.jpeg" alt="En la montaña" loading="lazy">
+      <img src="fotos/atardecer-tablas.jpeg" alt="Atardecer con las tablas" loading="lazy">
+      <img src="fotos/festejo-mundial.jpeg" alt="Festejando el Mundial" loading="lazy">
       <img src="fotos/atardecer-montanas.jpeg" alt="Atardecer en la montaña" loading="lazy">
-      <img src="fotos/quebrada.jpeg" alt="En la quebrada" loading="lazy">
+      <img src="fotos/abrazo-playa-atardecer.jpeg" alt="Abrazo en la playa al atardecer" loading="lazy">
+      <img src="fotos/selfie-anillo-playa.jpeg" alt="Selfie mostrando el anillo" loading="lazy">
     </div>
   </section>
 
@@ -351,7 +351,7 @@
       entries.forEach(function(en){
         if(en.isIntersecting){ en.target.classList.add('visible'); io.unobserve(en.target); }
       });
-    }, {threshold:.15, rootMargin:'0px 0px -40px 0px'});
+    }, {threshold:0, rootMargin:'0px 0px -40px 0px'});
     reveals.forEach(function(el){ io.observe(el); });
   } else {
     reveals.forEach(function(el){ el.classList.add('visible'); });
