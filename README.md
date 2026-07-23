@@ -17,6 +17,5 @@ Cuenta regresiva · Agenda con mapas · RSVP (un form por persona) · Regalos (a
 Vercel, sitio estático sin build. Push a `main` en GitHub deploya automáticamente.
 
 ## Pendientes
-- [ ] Reemplazar ilustración SVG por foto real
 - [ ] Alias/CBU real en Regalos
 - [ ] Conectar `SHEET_URL` (Apps Script)
