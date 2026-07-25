@@ -124,6 +124,8 @@
   @media(max-width:640px){.rsvp-card{padding:32px 22px}}
   .rsvp-intro{text-align:center;font-size:20px;font-style:italic;color:var(--ink-soft);margin-bottom:28px}
   label{display:block;font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-soft);margin:20px 0 6px}
+  /* marca de campo obligatorio; el lector de pantalla ya lo sabe por el atributo required */
+  label .req{color:var(--accent);letter-spacing:0;margin-left:.25em;font-size:13px;vertical-align:1px}
   input[type=text],select,textarea{
     width:100%;padding:12px 14px;font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--ink);
     background:#fff;border:1px solid rgba(74,67,53,.22);outline:none;border-radius:0;
@@ -260,9 +262,9 @@
     <div class="rsvp-card reveal reveal-d1">
       <p class="rsvp-intro">Para una mejor organización, es muy importante que nos ayudes confirmando tu asistencia:</p>
       <form id="rsvp-form">
-        <label for="nombre">Nombre y apellido</label>
+        <label for="nombre">Nombre y apellido<span class="req" aria-hidden="true">*</span></label>
         <input type="text" id="nombre" class="name-input" required placeholder="Nombre y apellido">
-        <label for="asistencia">¿Venís?</label>
+        <label for="asistencia">¿Venís?<span class="req" aria-hidden="true">*</span></label>
         <select id="asistencia" name="Asistencia" required>
           <option value="" disabled selected>Elegí una opción</option>
           <option>Siiii</option>
@@ -270,7 +272,7 @@
         </select>
         <label for="dieta">Restricciones alimentarias</label>
         <input type="text" id="dieta" name="Dieta" placeholder="Vegetariano, celíaco, nada...">
-        <label for="mensaje">Mensaje para los novios (opcional)</label>
+        <label for="mensaje">Mensaje para los novios</label>
         <textarea id="mensaje" name="Mensaje" placeholder="Tirá la mejor onda"></textarea>
         <button class="btn" type="submit">Confirmar</button>
       </form>
