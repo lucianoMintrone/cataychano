@@ -148,16 +148,29 @@
   .gift{max-width:560px;margin:0 auto;text-align:center}
   .gift p.frase{font-size:23px;font-style:italic;line-height:1.5}
   .gift p.frase span{display:block;text-wrap:balance}
+  .alias-list{margin-top:30px;display:flex;flex-direction:column;align-items:center;gap:14px}
   .alias-box{
-    margin-top:30px;display:inline-flex;align-items:center;gap:14px;
-    background:var(--card);border:1px dashed var(--accent);padding:16px 22px;
+    display:flex;align-items:center;justify-content:space-between;gap:18px;
+    width:min(320px,100%);text-align:left;
+    background:var(--card);border:1px dashed var(--accent);padding:14px 18px;
+  }
+  .alias-box .moneda{
+    display:block;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.22em;
+    text-transform:uppercase;color:var(--ink-soft);margin-bottom:5px;
   }
   .alias-box code{font-family:'Space Mono',monospace;font-size:16px;letter-spacing:.06em;color:var(--ink)}
   .copy{
-    font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;
-    background:none;border:1px solid var(--ink-soft);color:var(--ink-soft);padding:7px 12px;cursor:pointer;
+    flex:none;display:inline-flex;align-items:center;justify-content:center;
+    background:none;border:1px solid var(--ink-soft);color:var(--ink-soft);
+    width:36px;height:36px;padding:0;cursor:pointer;
   }
   .copy:hover{border-color:var(--accent);color:var(--accent)}
+  .copy .ico-ok{display:none}
+  .copy.copiado{border-color:var(--accent);color:var(--accent)}
+  .copy.copiado .ico-copy{display:none}
+  .copy.copiado .ico-ok{display:block}
+  .titular{margin-top:18px;font-size:16px;font-style:italic;color:var(--ink-soft)}
+  .titular strong{font-style:normal;font-weight:600;color:var(--ink)}
 
   /* fotos */
   .fotos-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
@@ -266,10 +279,29 @@
     <h2 class="sec-title reveal">Regalos</h2>
     <div class="gift reveal reveal-d1">
       <p class="frase"><span>El mejor regalo es que nos acompañes ese&nbsp;día…</span><span>pero si además querés hacernos un&nbsp;regalo, te dejamos los datos.</span></p>
-      <div class="alias-box">
-        <code id="alias">CATA.CHANO.BODA</code>
-        <button class="copy" onclick="copiarAlias()">Copiar</button>
+      <div class="alias-list">
+        <div class="alias-box">
+          <div>
+            <span class="moneda">Pesos</span>
+            <code>CATA.CHANO.ARS</code>
+          </div>
+          <button class="copy" type="button" aria-label="Copiar alias en pesos">
+            <svg class="ico-copy" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
+            <svg class="ico-ok" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+          </button>
+        </div>
+        <div class="alias-box">
+          <div>
+            <span class="moneda">Dólares</span>
+            <code>CATA.CHANO.USD</code>
+          </div>
+          <button class="copy" type="button" aria-label="Copiar alias en dólares">
+            <svg class="ico-copy" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
+            <svg class="ico-ok" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+          </button>
+        </div>
       </div>
+      <p class="titular">A nombre de <strong>Catalina Rodriguez Kenny</strong></p>
     </div>
   </section>
 
@@ -368,12 +400,16 @@
     }, {passive:true});
   }
 
-  function copiarAlias(){
-    navigator.clipboard.writeText(document.getElementById('alias').textContent).then(function(){
-      var b = document.querySelector('.copy'); b.textContent = '¡Copiado!';
-      setTimeout(function(){ b.textContent = 'Copiar'; }, 1600);
+  // Copiar alias (un botón por moneda)
+  Array.prototype.forEach.call(document.querySelectorAll('.alias-box .copy'), function(btn){
+    btn.addEventListener('click', function(){
+      var alias = btn.parentNode.querySelector('code').textContent.trim();
+      navigator.clipboard.writeText(alias).then(function(){
+        btn.classList.add('copiado');
+        setTimeout(function(){ btn.classList.remove('copiado'); }, 1600);
+      });
     });
-  }
+  });
 </script>
 </body>
 </html>
