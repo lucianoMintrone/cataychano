@@ -16,8 +16,7 @@
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-<style>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"><style>
   :root{
     --paper:#efeee8;
     --ink:#4a4335;
@@ -59,7 +58,8 @@
     font-weight:500;letter-spacing:.14em;
     margin:18px 0 8px;
   }
-  h1 .amp{font-style:italic;font-weight:400;color:var(--accent)}
+  /* ampersand derecho, misma tipografía del título */
+  h1 .amp{color:var(--accent)}
   .postcard{
     margin:40px auto 0;max-width:560px;position:relative;
     background:#fff;padding:12px 12px 14px;
@@ -128,12 +128,16 @@
     width:100%;padding:12px 14px;font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--ink);
     background:#fff;border:1px solid rgba(74,67,53,.22);outline:none;border-radius:0;
   }
+  ::placeholder{color:var(--ink-soft);opacity:1}
   select{
     appearance:none;-webkit-appearance:none;
-    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%234a4335' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%237a7261' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
     background-repeat:no-repeat;background-position:right 18px center;
     padding-right:44px;
   }
+  /* mientras no se eligió opción (el placeholder tiene value="") se ve como placeholder */
+  select:invalid{color:var(--ink-soft)}
+  select option{color:var(--ink)}
   input:focus,select:focus,textarea:focus{border-color:var(--sea-deep)}
   textarea{resize:vertical;min-height:80px}
   .btn{
