@@ -59,7 +59,7 @@
     margin:18px 0 8px;
   }
   /* ampersand derecho, misma tipografía del título */
-  h1 .amp{color:var(--accent)}
+  .amp{color:var(--accent)}
   .postcard{
     margin:40px auto 0;max-width:560px;position:relative;
     background:#fff;padding:12px 12px 14px;
@@ -193,6 +193,8 @@
 
   footer{text-align:center;padding:60px 0 80px;font-style:italic;font-size:19px;color:var(--ink-soft)}
   footer .mono{display:block;margin-top:14px;font-size:11px;letter-spacing:.3em;text-transform:uppercase;font-style:normal}
+  /* el & del footer replica el del título: Cormorant en vez de la mono */
+  footer .amp{font-family:'Cormorant Garamond',serif;font-size:15px;letter-spacing:0;vertical-align:-1px}
 
   .wave-divider{display:block;margin:0 auto;width:120px;opacity:.55}
 
@@ -327,7 +329,7 @@
   </section>
 
   <footer class="reveal">
-    <span class="mono">Cata &amp; Chano · 24.10.2026</span>
+    <span class="mono">Cata <span class="amp">&amp;</span> Chano · 24.10.2026</span>
   </footer>
 
 </main>
@@ -351,8 +353,8 @@
   tick(); setInterval(tick,30000);
 
   // RSVP: submit sin salir de la página (un form por persona)
-  // Cuando esté el Apps Script del Google Sheet, pegar acá su URL
-  var SHEET_URL = '';
+  // Apps Script que escribe en la planilla de respuestas (código en apps-script.gs)
+  var SHEET_URL = 'https://script.google.com/macros/s/AKfycbyqgwrfhiCmRKnmv0eDTQweBcudQQWMDezXTdgnPm5yjl3qqX88qyFmviAltqIfgGX_fQ/exec';
   var FORMSUBMIT_URL = 'https://formsubmit.co/luciano@amalgama.co';
 
   document.getElementById('rsvp-form').addEventListener('submit', function(e){
