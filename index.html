@@ -85,16 +85,18 @@
     position:relative;z-index:1;
     background:#fff;padding:12px 12px 14px;
     box-shadow:0 12px 30px rgba(74,67,53,.18);
-    transform-origin:top center;
+    transform-origin:top center;transform-style:preserve-3d;
     transition:transform .7s cubic-bezier(.22,.61,.36,1),
                box-shadow .7s cubic-bezier(.22,.61,.36,1);
   }
   .postcard.levantada .postcard-paper{
-    transform:rotateX(85deg);
+    transform:rotateX(100deg);
     box-shadow:0 34px 60px rgba(74,67,53,.28);
   }
   @media(prefers-reduced-motion:reduce){.postcard-paper{transition:none}}
   .postcard img{display:block;width:100%;height:auto}
+  /* al pasar la vertical se oculta la cara y queda el papel blanco: el dorso de la foto */
+  .postcard-paper img{backface-visibility:hidden;-webkit-backface-visibility:hidden}
   .bigdate{
     font-family:'Space Mono',monospace;font-size:clamp(28px,6vw,44px);
     letter-spacing:.12em;margin-top:44px;font-weight:700;
