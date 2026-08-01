@@ -21,6 +21,6 @@ La sección `#musica` embebe la playlist de Spotify y el botón "Agregá cancion
 Vercel, sitio estático sin build. Push a `main` en GitHub deploya automáticamente.
 
 ## Pendientes
-- [ ] Alias/CBU real en Regalos (hoy `CATA.CHANO.ARS` y `CATA.CHANO.USD`)
+- [x] Alias/CBU real en Regalos (`CATA.CHANO.ARS` y `CATA.CHANO.USD`)
 - [ ] Confirmar que la playlist esté en modo colaborativo (probar el link desde otra cuenta)
 - [ ] Opcional: renombrar la playlist, que hoy se muestra como "SWELL FOR LIFE"

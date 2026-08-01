@@ -24,5 +24,6 @@ One form per person — guests with a +1 are asked to have them submit their own
 
 ## Known pending work (from README)
 
-- Real alias/CBU in the gifts section (current `CATA.CHANO.BODA` is a placeholder)
 - Set `SHEET_URL` once the Apps Script exists
+
+The gifts section aliases (`CATA.CHANO.ARS` for pesos, `CATA.CHANO.USD` for dollars, account holder Catalina Rodriguez Kenny) are the real ones — don't treat them as placeholders.
