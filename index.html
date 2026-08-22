@@ -234,7 +234,7 @@
   @media(max-width:820px){.fotos-grid{grid-template-columns:repeat(3,1fr)}}
   @media(max-width:520px){.fotos-grid{grid-template-columns:1fr}}
   .fotos-grid img{display:block;width:100%;aspect-ratio:1;object-fit:cover}
-  /* easter egg: un toque en algunas fotos y se dan vuelta */
+  /* easter egg: un toque en las fotos y se dan vuelta */
   .fotos-grid .flip{position:relative;aspect-ratio:1;perspective:900px;cursor:pointer;
     touch-action:manipulation;-webkit-tap-highlight-color:transparent}
   .fotos-grid .flip-inner{position:absolute;inset:0;transform-style:preserve-3d;
@@ -383,9 +383,24 @@
           <img class="flip-back baja" src="fotos/grupo-nieve.jpeg" alt="Con los amigos en la nieve" loading="lazy">
         </div>
       </div>
-      <img src="fotos/selfie-invierno.jpeg" alt="Selfie de invierno" loading="lazy">
-      <img src="fotos/montanas.jpeg" alt="En la montaña" loading="lazy">
-      <img src="fotos/atardecer-tablas.jpeg" alt="Atardecer con las tablas" loading="lazy">
+      <div class="flip">
+        <div class="flip-inner">
+          <img src="fotos/selfie-invierno.jpeg" alt="Selfie de invierno" loading="lazy">
+          <img class="flip-back" src="fotos/amigas-navidad.jpeg" alt="Con las amigas en Navidad" loading="lazy">
+        </div>
+      </div>
+      <div class="flip" data-ciclo='[{"src":"fotos/equipo-futbol.jpeg","alt":"Con el equipo de fútbol"}]'>
+        <div class="flip-inner">
+          <img src="fotos/montanas.jpeg" alt="En la montaña" loading="lazy">
+          <img class="flip-back" src="fotos/grupo-playa.jpeg" alt="Con los amigos en la playa al atardecer" loading="lazy">
+        </div>
+      </div>
+      <div class="flip" data-ciclo='[{"src":"fotos/baby-shower.jpeg","alt":"Con las amigas en el baby shower"}]'>
+        <div class="flip-inner">
+          <img src="fotos/atardecer-tablas.jpeg" alt="Atardecer con las tablas" loading="lazy">
+          <img class="flip-back" src="fotos/cosquin-rock.jpeg" alt="Con las amigas en el Cosquín Rock" loading="lazy">
+        </div>
+      </div>
       <div class="flip">
         <div class="flip-inner">
           <img src="fotos/festejo-mundial.jpeg" alt="Festejando el Mundial" loading="lazy">
@@ -487,10 +502,34 @@
     }
   });
 
-  // Easter egg: un toque en algunas fotos y se dan vuelta
+  // Easter egg: un toque en las fotos y se dan vuelta.
+  // Las que tienen data-ciclo pasan por más de dos fotos: la cara que queda
+  // atrás se recarga con la próxima mientras está oculta.
   document.querySelectorAll('.fotos-grid .flip').forEach(function(flip){
+    var inner = flip.querySelector('.flip-inner');
+    var caras = [inner.children[0], inner.children[1]];
+    var ciclo = null, paso = 0, pendiente = null;
+
+    if(flip.dataset.ciclo){
+      ciclo = caras.map(function(img){ return {src:img.getAttribute('src'), alt:img.alt}; })
+                   .concat(JSON.parse(flip.dataset.ciclo));
+      ciclo.forEach(function(foto){ new Image().src = foto.src; }); // precarga
+    }
+
+    function acomodar(){
+      pendiente = null;
+      var oculta = caras[flip.classList.contains('flipped') ? 0 : 1];
+      var proxima = ciclo[(paso + 1) % ciclo.length];
+      oculta.src = proxima.src;
+      oculta.alt = proxima.alt;
+    }
+
     flip.addEventListener('click', function(){
+      if(pendiente){ clearTimeout(pendiente); acomodar(); } // toque apurado: adelanto el cambio anterior
       flip.classList.toggle('flipped');
+      if(!ciclo) return;
+      paso++;
+      pendiente = setTimeout(acomodar, 450); // pasada la mitad del giro la cara ya no se ve
     });
   });
 
