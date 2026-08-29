@@ -253,6 +253,15 @@
 
   .wave-divider{display:block;margin:0 auto;width:120px;opacity:.55}
 
+  /* cambio de idioma (?lang=en) */
+  .lang-toggle{
+    display:inline-block;margin-top:20px;font-family:'Space Mono',monospace;font-size:10px;
+    letter-spacing:.28em;text-transform:uppercase;font-style:normal;color:var(--ink-soft);
+    text-decoration:none;border-bottom:1px solid var(--accent);padding-bottom:3px;
+  }
+  /* el inglés lo escribe el JS: tapo el texto hasta que corre para que no se vea el español */
+  html.pre-i18n main{opacity:0}
+
   /* ---------- SCROLL EFFECTS ---------- */
   .postcard{transform:rotate(-1.2deg) translateY(var(--plx,0px))}
   .reveal{opacity:0;transform:translateY(26px);transition:opacity .9s ease,transform .9s cubic-bezier(.22,.61,.36,1)}
@@ -265,53 +274,62 @@
     .reveal.wave-divider{opacity:.55}
   }
 </style>
+<script>
+  // ?lang=en muestra la página en inglés (el diccionario I18N_EN está al final del body)
+  var LANG = /^en/i.test(new URLSearchParams(location.search).get('lang') || '') ? 'en' : 'es';
+  document.documentElement.lang = LANG;
+  if(LANG === 'en'){
+    document.documentElement.className += ' pre-i18n';
+    setTimeout(function(){ document.documentElement.classList.remove('pre-i18n'); }, 1500); // por si el JS de abajo falla
+  }
+</script>
 </head>
 <body>
 <main>
 
   <!-- HERO -->
   <header>
-    <div class="kicker">¡Nos casamos!</div>
+    <div class="kicker" data-i18n="hero.kicker">¡Nos casamos!</div>
     <h1>CATA <span class="amp">&amp;</span> CHANO</h1>
 
     <div class="postcard">
       <div class="postcard-atras">
-        <img src="fotos/selfie-anillo-mate.jpeg" alt="Selfie con el anillo y un mate" decoding="async" fetchpriority="low">
+        <img src="fotos/selfie-anillo-mate.jpeg" alt="Selfie con el anillo y un mate" data-i18n-alt="alt.anilloMate" decoding="async" fetchpriority="low">
       </div>
       <div class="postcard-paper">
-        <img src="fotos/surf-mar-faro.jpeg" alt="Cata y Chano surfeando en el mar, con un faro al fondo" width="1600" height="960">
+        <img src="fotos/surf-mar-faro.jpeg" alt="Cata y Chano surfeando en el mar, con un faro al fondo" data-i18n-alt="alt.surfFaro" width="1600" height="960">
       </div>
     </div>
 
-    <div class="bigdate">24.10.2026</div>
-    <div class="subline">Sábado · Buenos Aires</div>
+    <div class="bigdate" data-i18n="hero.fecha">24.10.2026</div>
+    <div class="subline" data-i18n="hero.subline">Sábado · Buenos Aires</div>
   </header>
 
   <!-- COUNTDOWN -->
   <div class="countdown reveal" id="countdown">
-    <div class="cd-box"><div class="cd-num" id="cd-d">–</div><div class="cd-label">días</div></div>
-    <div class="cd-box"><div class="cd-num" id="cd-h">–</div><div class="cd-label">horas</div></div>
-    <div class="cd-box"><div class="cd-num" id="cd-m">–</div><div class="cd-label">min</div></div>
+    <div class="cd-box"><div class="cd-num" id="cd-d">–</div><div class="cd-label" data-i18n="cd.dias">días</div></div>
+    <div class="cd-box"><div class="cd-num" id="cd-h">–</div><div class="cd-label" data-i18n="cd.horas">horas</div></div>
+    <div class="cd-box"><div class="cd-num" id="cd-m">–</div><div class="cd-label" data-i18n="cd.min">min</div></div>
   </div>
   <div class="cal-wrap reveal reveal-d1">
-    <a class="cal-btn" target="_blank" rel="noopener" href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Casamiento%20Cata%20%26%20Chano&amp;dates=20261024T153000/20261025T020000&amp;ctz=America/Argentina/Buenos_Aires&amp;location=Iglesia%20Michael%20Ham%2C%20Vicente%20L%C3%B3pez&amp;details=15%3A30%20Ceremonia%20en%20Iglesia%20Michael%20Ham%20%C2%B7%2018%3A00%20%C2%A1La%20fiesta%21%20en%20Quinta%20El%20Tata.%20M%C3%A1s%20info%3A%20https%3A%2F%2Fcataychano.vercel.app">Agregar al calendario</a>
+    <a class="cal-btn" target="_blank" rel="noopener" href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Casamiento%20Cata%20%26%20Chano&amp;dates=20261024T153000/20261025T020000&amp;ctz=America/Argentina/Buenos_Aires&amp;location=Iglesia%20Michael%20Ham%2C%20Vicente%20L%C3%B3pez&amp;details=15%3A30%20Ceremonia%20en%20Iglesia%20Michael%20Ham%20%C2%B7%2018%3A00%20%C2%A1La%20fiesta%21%20en%20Quinta%20El%20Tata.%20M%C3%A1s%20info%3A%20https%3A%2F%2Fcataychano.vercel.app" data-i18n="cal.texto" data-i18n-href="cal.href">Agregar al calendario</a>
   </div>
 
   <!-- AGENDA -->
   <section id="agenda">
-    <h2 class="sec-title reveal">El plan</h2>
+    <h2 class="sec-title reveal" data-i18n="agenda.titulo">El plan</h2>
     <div class="agenda">
       <div class="evt reveal">
         <div class="hour">15:30</div>
-        <h3>Ceremonia</h3>
+        <h3 data-i18n="agenda.ceremonia">Ceremonia</h3>
         <p>Iglesia Michael Ham</p>
-        <a class="map" href="https://maps.google.com/?q=Iglesia+Michael+Ham+Vicente+L%C3%B3pez" target="_blank" rel="noopener">Ver en el mapa</a>
+        <a class="map" href="https://maps.google.com/?q=Iglesia+Michael+Ham+Vicente+L%C3%B3pez" target="_blank" rel="noopener" data-i18n="agenda.mapa">Ver en el mapa</a>
       </div>
       <div class="evt reveal reveal-d1">
         <div class="hour">18:00</div>
-        <h3>¡La fiesta!</h3>
+        <h3 data-i18n="agenda.fiesta">¡La fiesta!</h3>
         <p>Quinta El Tata</p>
-        <a class="map" href="https://maps.google.com/?q=Quinta+El+Tata" target="_blank" rel="noopener">Ver en el mapa</a>
+        <a class="map" href="https://maps.google.com/?q=Quinta+El+Tata" target="_blank" rel="noopener" data-i18n="agenda.mapa">Ver en el mapa</a>
       </div>
     </div>
   </section>
@@ -320,109 +338,109 @@
 
   <!-- RSVP -->
   <section id="rsvp">
-    <h2 class="sec-title reveal">Confirmá tu asistencia</h2>
+    <h2 class="sec-title reveal" data-i18n="rsvp.titulo">Confirmá tu asistencia</h2>
     <div class="rsvp-card reveal reveal-d1">
-      <p class="rsvp-intro">Para una mejor organización, es muy importante que nos ayudes confirmando tu asistencia:</p>
+      <p class="rsvp-intro" data-i18n="rsvp.intro">Para una mejor organización, es muy importante que nos ayudes confirmando tu asistencia:</p>
       <form id="rsvp-form">
-        <label for="nombre">Nombre y apellido<span class="req" aria-hidden="true">*</span></label>
-        <input type="text" id="nombre" class="name-input" required placeholder="Nombre y apellido">
-        <label for="asistencia">¿Venís?<span class="req" aria-hidden="true">*</span></label>
+        <label for="nombre" data-i18n-html="rsvp.nombre">Nombre y apellido<span class="req" aria-hidden="true">*</span></label>
+        <input type="text" id="nombre" class="name-input" required placeholder="Nombre y apellido" data-i18n-ph="rsvp.nombrePh">
+        <label for="asistencia" data-i18n-html="rsvp.venis">¿Venís?<span class="req" aria-hidden="true">*</span></label>
         <select id="asistencia" name="Asistencia" required>
-          <option value="" disabled selected>Elegí una opción</option>
-          <option>Siiii</option>
-          <option>No puedo, los quiero igual</option>
+          <option value="" disabled selected data-i18n="rsvp.elegi">Elegí una opción</option>
+          <option data-i18n="rsvp.si">Siiii</option>
+          <option data-i18n="rsvp.no">No puedo, los quiero igual</option>
         </select>
-        <label for="dieta">Restricciones alimentarias</label>
-        <input type="text" id="dieta" name="Dieta" placeholder="Vegetariano, celíaco, nada...">
-        <label for="mensaje">Mensaje para los novios</label>
-        <textarea id="mensaje" name="Mensaje" placeholder="Tirá la mejor onda"></textarea>
-        <button class="btn" type="submit">Confirmar</button>
+        <label for="dieta" data-i18n="rsvp.dieta">Restricciones alimentarias</label>
+        <input type="text" id="dieta" name="Dieta" placeholder="Vegetariano, celíaco, nada..." data-i18n-ph="rsvp.dietaPh">
+        <label for="mensaje" data-i18n="rsvp.mensaje">Mensaje para los novios</label>
+        <textarea id="mensaje" name="Mensaje" placeholder="Tirá la mejor onda" data-i18n-ph="rsvp.mensajePh"></textarea>
+        <button class="btn" type="submit" data-i18n="rsvp.boton">Confirmar</button>
       </form>
-      <p class="form-ok" id="form-ok">¡Gracias! Nos vemos el 24.10 🌊</p>
+      <p class="form-ok" id="form-ok" data-i18n="rsvp.gracias">¡Gracias! Nos vemos el 24.10 🌊</p>
     </div>
   </section>
 
   <!-- REGALOS -->
   <section id="regalos">
-    <h2 class="sec-title reveal">Regalos</h2>
+    <h2 class="sec-title reveal" data-i18n="regalos.titulo">Regalos</h2>
     <div class="gift reveal reveal-d1">
-      <p class="frase"><span>El mejor regalo es que nos acompañes ese&nbsp;día…</span><span>pero si además querés hacernos un&nbsp;regalo, te dejamos los datos.</span></p>
+      <p class="frase"><span data-i18n="regalos.frase1">El mejor regalo es que nos acompañes ese&nbsp;día…</span><span data-i18n="regalos.frase2">pero si además querés hacernos un&nbsp;regalo, te dejamos los datos.</span></p>
       <div class="alias-list">
         <div class="alias-box">
           <div>
-            <span class="moneda">Pesos</span>
+            <span class="moneda" data-i18n="regalos.pesos">Pesos</span>
             <code>CATA.CHANO.ARS</code>
           </div>
-          <button class="copy" type="button" aria-label="Copiar alias en pesos">
+          <button class="copy" type="button" aria-label="Copiar alias en pesos" data-i18n-aria="regalos.copiarPesos">
             <svg class="ico-copy" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
             <svg class="ico-ok" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
           </button>
         </div>
         <div class="alias-box">
           <div>
-            <span class="moneda">Dólares</span>
+            <span class="moneda" data-i18n="regalos.dolares">Dólares</span>
             <code>CATA.CHANO.USD</code>
           </div>
-          <button class="copy" type="button" aria-label="Copiar alias en dólares">
+          <button class="copy" type="button" aria-label="Copiar alias en dólares" data-i18n-aria="regalos.copiarDolares">
             <svg class="ico-copy" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
             <svg class="ico-ok" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
           </button>
         </div>
       </div>
-      <p class="titular">A nombre de <strong>Catalina Rodriguez Kenny</strong></p>
+      <p class="titular" data-i18n-html="regalos.titular">A nombre de <strong>Catalina Rodriguez Kenny</strong></p>
     </div>
   </section>
 
   <!-- FOTOS -->
   <section id="fotos">
-    <h2 class="sec-title reveal">Nosotros</h2>
+    <h2 class="sec-title reveal" data-i18n="fotos.titulo">Nosotros</h2>
     <div class="fotos-grid reveal reveal-d1">
       <div class="flip">
         <div class="flip-inner">
-          <img src="fotos/despues-del-surf.jpeg" alt="Después de surfear" loading="lazy">
-          <img class="flip-back baja" src="fotos/grupo-nieve.jpeg" alt="Con los amigos en la nieve" loading="lazy">
+          <img src="fotos/despues-del-surf.jpeg" alt="Después de surfear" data-i18n-alt="alt.despuesSurf" loading="lazy">
+          <img class="flip-back baja" src="fotos/grupo-nieve.jpeg" alt="Con los amigos en la nieve" data-i18n-alt="alt.nieve" loading="lazy">
         </div>
       </div>
       <div class="flip">
         <div class="flip-inner">
-          <img src="fotos/selfie-invierno.jpeg" alt="Selfie de invierno" loading="lazy">
-          <img class="flip-back" src="fotos/amigas-navidad.jpeg" alt="Con las amigas en Navidad" loading="lazy">
+          <img src="fotos/selfie-invierno.jpeg" alt="Selfie de invierno" data-i18n-alt="alt.selfieInvierno" loading="lazy">
+          <img class="flip-back" src="fotos/amigas-navidad.jpeg" alt="Con las amigas en Navidad" data-i18n-alt="alt.navidad" loading="lazy">
         </div>
       </div>
-      <div class="flip" data-ciclo='[{"src":"fotos/equipo-futbol.jpeg","alt":"Con el equipo de fútbol"}]'>
+      <div class="flip" data-ciclo='[{"src":"fotos/equipo-futbol.jpeg","alt":"Con el equipo de fútbol"}]' data-ciclo-en='[{"src":"fotos/equipo-futbol.jpeg","alt":"With the football team"}]'>
         <div class="flip-inner">
-          <img src="fotos/montanas.jpeg" alt="En la montaña" loading="lazy">
-          <img class="flip-back" src="fotos/grupo-playa.jpeg" alt="Con los amigos en la playa al atardecer" loading="lazy">
+          <img src="fotos/montanas.jpeg" alt="En la montaña" data-i18n-alt="alt.montana" loading="lazy">
+          <img class="flip-back" src="fotos/grupo-playa.jpeg" alt="Con los amigos en la playa al atardecer" data-i18n-alt="alt.playaAtardecer" loading="lazy">
         </div>
       </div>
-      <div class="flip" data-ciclo='[{"src":"fotos/baby-shower.jpeg","alt":"Con las amigas en el baby shower"}]'>
+      <div class="flip" data-ciclo='[{"src":"fotos/baby-shower.jpeg","alt":"Con las amigas en el baby shower"}]' data-ciclo-en='[{"src":"fotos/baby-shower.jpeg","alt":"With friends at the baby shower"}]'>
         <div class="flip-inner">
-          <img src="fotos/atardecer-tablas.jpeg" alt="Atardecer con las tablas" loading="lazy">
-          <img class="flip-back" src="fotos/cosquin-rock.jpeg" alt="Con las amigas en el Cosquín Rock" loading="lazy">
-        </div>
-      </div>
-      <div class="flip">
-        <div class="flip-inner">
-          <img src="fotos/festejo-mundial.jpeg" alt="Festejando el Mundial" loading="lazy">
-          <img class="flip-back" src="fotos/festejo-copa.jpeg" alt="Colgados de las rejas del Banco Nación con la Copa" loading="lazy">
+          <img src="fotos/atardecer-tablas.jpeg" alt="Atardecer con las tablas" data-i18n-alt="alt.tablas" loading="lazy">
+          <img class="flip-back" src="fotos/cosquin-rock.jpeg" alt="Con las amigas en el Cosquín Rock" data-i18n-alt="alt.cosquin" loading="lazy">
         </div>
       </div>
       <div class="flip">
         <div class="flip-inner">
-          <img src="fotos/atardecer-montanas.jpeg" alt="Atardecer en la montaña" loading="lazy">
-          <img class="flip-back" src="fotos/grupo-ascensor.jpeg" alt="Con los amigos en el palier, de noche" loading="lazy">
+          <img src="fotos/festejo-mundial.jpeg" alt="Festejando el Mundial" data-i18n-alt="alt.mundial" loading="lazy">
+          <img class="flip-back" src="fotos/festejo-copa.jpeg" alt="Colgados de las rejas del Banco Nación con la Copa" data-i18n-alt="alt.copa" loading="lazy">
         </div>
       </div>
       <div class="flip">
         <div class="flip-inner">
-          <img src="fotos/abrazo-playa-atardecer.jpeg" alt="Abrazo en la playa al atardecer" loading="lazy">
-          <img class="flip-back" src="fotos/amigos-tenis.jpeg" alt="Con los amigos en el club de tenis" loading="lazy">
+          <img src="fotos/atardecer-montanas.jpeg" alt="Atardecer en la montaña" data-i18n-alt="alt.atardecerMontana" loading="lazy">
+          <img class="flip-back" src="fotos/grupo-ascensor.jpeg" alt="Con los amigos en el palier, de noche" data-i18n-alt="alt.palier" loading="lazy">
         </div>
       </div>
       <div class="flip">
         <div class="flip-inner">
-          <img src="fotos/selfie-anillo-playa.jpeg" alt="Selfie mostrando el anillo" loading="lazy">
-          <img class="flip-back" src="fotos/charla-noche.jpeg" alt="Charlando de noche en la escalera" loading="lazy">
+          <img src="fotos/abrazo-playa-atardecer.jpeg" alt="Abrazo en la playa al atardecer" data-i18n-alt="alt.abrazoPlaya" loading="lazy">
+          <img class="flip-back" src="fotos/amigos-tenis.jpeg" alt="Con los amigos en el club de tenis" data-i18n-alt="alt.tenis" loading="lazy">
+        </div>
+      </div>
+      <div class="flip">
+        <div class="flip-inner">
+          <img src="fotos/selfie-anillo-playa.jpeg" alt="Selfie mostrando el anillo" data-i18n-alt="alt.selfieAnillo" loading="lazy">
+          <img class="flip-back" src="fotos/charla-noche.jpeg" alt="Charlando de noche en la escalera" data-i18n-alt="alt.escalera" loading="lazy">
         </div>
       </div>
     </div>
@@ -432,33 +450,154 @@
 
   <!-- MÚSICA -->
   <section id="musica">
-    <h2 class="sec-title reveal">Música</h2>
+    <h2 class="sec-title reveal" data-i18n="musica.titulo">Música</h2>
     <div class="playlist reveal reveal-d1">
       <div class="playlist-copy">
-        <p class="playlist-frase"><span>Tu música,</span><span>nuestra playlist.</span></p>
-        <p class="playlist-sub">Ayudanos a que no falte ninguna canción.</p>
-        <a class="cal-btn" target="_blank" rel="noopener" href="https://open.spotify.com/playlist/4q4ncpN1PYrSzPDtLwKwV8?si=ZTNWFrqHSDCwquDd79MhlA&amp;utm_source=copy-link&amp;pt=ca9f00c69b3b943ddb87a101647d3885&amp;pi=hRFCRA80TRO12">Agregá canciones</a>
+        <p class="playlist-frase"><span data-i18n="musica.frase1">Tu música,</span><span data-i18n="musica.frase2">nuestra playlist.</span></p>
+        <p class="playlist-sub" data-i18n="musica.sub">Ayudanos a que no falte ninguna canción.</p>
+        <a class="cal-btn" target="_blank" rel="noopener" href="https://open.spotify.com/playlist/4q4ncpN1PYrSzPDtLwKwV8?si=7aeb59c111be4b5d&amp;pt=8b9332feecc6ea1a1dc9b047098441a5" data-i18n="musica.boton">Agregá canciones</a>
       </div>
       <iframe class="playlist-embed"
               src="https://open.spotify.com/embed/playlist/4q4ncpN1PYrSzPDtLwKwV8?utm_source=generator&amp;theme=0"
-              title="Playlist del casamiento en Spotify" height="352" loading="lazy"
+              title="Playlist del casamiento en Spotify" data-i18n-title="musica.embed" height="352" loading="lazy"
               allow="clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
     </div>
   </section>
 
   <footer class="reveal">
-    <span class="mono">Cata <span class="amp">&amp;</span> Chano · 24.10.2026</span>
+    <span class="mono" data-i18n-html="footer.linea">Cata <span class="amp">&amp;</span> Chano · 24.10.2026</span>
+    <a class="lang-toggle" id="lang-toggle" href="?lang=en" hreflang="en">English</a>
   </footer>
 
 </main>
 
 <script>
+  // ---------- INGLÉS (?lang=en) ----------
+  // La página es en castellano; con ?lang=en el diccionario pisa cada texto marcado
+  // con data-i18n (texto), -html (texto con markup), -ph (placeholder), -alt, -aria,
+  // -title y -href. LANG lo define el script del <head>, antes de que pinte nada.
+  var I18N_EN = {
+    'meta.title':      "Cata & Chano \u2014 We're getting married!",
+    'meta.desc':       '10.24.2026 \u00b7 Iglesia Michael Ham \u00b7 Quinta El Tata. RSVP here.',
+
+    'hero.kicker':     "We're getting married!",
+    'hero.subline':    'Saturday \u00b7 Buenos Aires',
+    'hero.fecha':      '10.24.2026',   // en ingl\u00e9s la fecha va mes.d\u00eda.a\u00f1o
+
+    'cd.dias':         'days',
+    'cd.horas':        'hours',
+    'cd.min':          'min',
+    'cal.texto':       'Add to calendar',
+    'cal.href':        'https://calendar.google.com/calendar/render?action=TEMPLATE&text=Cata%20%26%20Chano%27s%20Wedding&dates=20261024T153000/20261025T020000&ctz=America/Argentina/Buenos_Aires&location=Iglesia%20Michael%20Ham%2C%20Vicente%20L%C3%B3pez&details=15%3A30%20Ceremony%20at%20Iglesia%20Michael%20Ham%20%C2%B7%2018%3A00%20The%20party%21%20at%20Quinta%20El%20Tata.%20More%20info%3A%20https%3A%2F%2Fcataychano.vercel.app%2F%3Flang%3Den',
+
+    'agenda.titulo':   'The plan',
+    'agenda.ceremonia':'Ceremony',
+    'agenda.fiesta':   'The party!',
+    'agenda.mapa':     'View on the map',
+
+    'rsvp.titulo':     'RSVP',
+    'rsvp.intro':      'To help us get everything ready, please let us know if you can make it:',
+    'rsvp.nombre':     'Full name<span class="req" aria-hidden="true">*</span>',
+    'rsvp.nombrePh':   'Full name',
+    'rsvp.venis':      'Are you coming?<span class="req" aria-hidden="true">*</span>',
+    'rsvp.elegi':      'Choose an option',
+    'rsvp.si':         'Yesss',
+    'rsvp.no':         "Can't make it, love you anyway",
+    'rsvp.dieta':      'Dietary restrictions',
+    'rsvp.dietaPh':    'Vegetarian, gluten-free, none...',
+    'rsvp.mensaje':    'Message for the couple',
+    'rsvp.mensajePh':  'Send them some love',
+    'rsvp.boton':      'Confirm',
+    'rsvp.gracias':    'Thank you! See you on 10.24 \ud83c\udf0a',
+
+    'regalos.titulo':  'Gifts',
+    'regalos.frase1':  'The best gift is having you with us that\u00a0day\u2026',
+    'regalos.frase2':  "but if you'd also like to give us something, here are the\u00a0details.",
+    'regalos.pesos':   'Pesos',
+    'regalos.dolares': 'Dollars',
+    'regalos.copiarPesos':   'Copy the peso alias',
+    'regalos.copiarDolares': 'Copy the dollar alias',
+    'regalos.titular': 'Account holder: <strong>Catalina Rodriguez Kenny</strong>',
+
+    'fotos.titulo':    'Us',
+    'alt.anilloMate':      'Selfie with the ring and a mate',
+    'alt.surfFaro':        'Cata and Chano surfing, with a lighthouse behind them',
+    'alt.despuesSurf':     'After surfing',
+    'alt.nieve':           'With friends in the snow',
+    'alt.selfieInvierno':  'Winter selfie',
+    'alt.navidad':         'With friends at Christmas',
+    'alt.montana':         'In the mountains',
+    'alt.playaAtardecer':  'With friends on the beach at sunset',
+    'alt.tablas':          'Sunset with the surfboards',
+    'alt.cosquin':         'With friends at Cosqu\u00edn Rock',
+    'alt.mundial':         'Celebrating the World Cup',
+    'alt.copa':            'Hanging off the Banco Naci\u00f3n railings with the trophy',
+    'alt.atardecerMontana':'Sunset in the mountains',
+    'alt.palier':          'With friends in the hallway at night',
+    'alt.abrazoPlaya':     'A hug on the beach at sunset',
+    'alt.tenis':           'With friends at the tennis club',
+    'alt.selfieAnillo':    'Selfie showing off the ring',
+    'alt.escalera':        'Chatting on the stairs at night',
+
+    'musica.titulo':   'Music',
+    'musica.frase1':   'Your music,',
+    'musica.frase2':   'our playlist.',
+    'musica.sub':      "Help us make sure no song is missing.",
+    'musica.boton':    'Add songs',
+    'musica.embed':    'Wedding playlist on Spotify',
+
+    'footer.linea':    'Cata <span class="amp">&amp;</span> Chano \u00b7 10.24.2026'
+  };
+
+  // Textos que el script escribe en caliente (no viven en el HTML)
+  var TEXTOS = {
+    es: {hoy:'\u00a1Es hoy!', enviando:'Enviando...', confirmar:'Confirmar',
+         sinNombre:'Pon\u00e9 tu nombre.', error:'Hubo un error, prob\u00e1 de nuevo.'},
+    en: {hoy:"It's today!", enviando:'Sending...', confirmar:'Confirm',
+         sinNombre:'Please enter your name.', error:'Something went wrong, please try again.'}
+  };
+  var T = TEXTOS[LANG];
+
+  if(LANG === 'en'){
+    document.title = I18N_EN['meta.title'];
+    var og = function(sel, clave){
+      var m = document.querySelector(sel);
+      if(m) m.setAttribute('content', I18N_EN[clave]);
+    };
+    og('meta[property="og:title"]', 'meta.title');
+    og('meta[property="og:description"]', 'meta.desc');
+
+    [['data-i18n', function(el,v){ el.textContent = v; }],
+     ['data-i18n-html', function(el,v){ el.innerHTML = v; }],
+     ['data-i18n-ph', function(el,v){ el.placeholder = v; }],
+     ['data-i18n-alt', function(el,v){ el.alt = v; }],
+     ['data-i18n-aria', function(el,v){ el.setAttribute('aria-label', v); }],
+     ['data-i18n-title', function(el,v){ el.title = v; }],
+     ['data-i18n-href', function(el,v){ el.href = v; }]
+    ].forEach(function(par){
+      Array.prototype.forEach.call(document.querySelectorAll('[' + par[0] + ']'), function(el){
+        var v = I18N_EN[el.getAttribute(par[0])];
+        if(v != null) par[1](el, v);
+      });
+    });
+  }
+  document.documentElement.classList.remove('pre-i18n');
+
+  // El link del pie lleva al mismo lugar en el otro idioma
+  var langToggle = document.getElementById('lang-toggle');
+  if(langToggle){
+    langToggle.textContent = LANG === 'en' ? 'Espa\u00f1ol' : 'English';
+    langToggle.hreflang = LANG === 'en' ? 'es' : 'en';
+    langToggle.href = location.pathname + (LANG === 'en' ? '?lang=es' : '?lang=en') + location.hash;
+  }
+
   // Countdown al 24/10/2026 15:30 hora Argentina (UTC-3)
   var target = new Date('2026-10-24T15:30:00-03:00').getTime();
   function tick(){
     var diff = target - Date.now();
     if(diff <= 0){
-      document.getElementById('countdown').innerHTML = '<div class="cd-num">¡Es hoy!</div>';
+      document.getElementById('countdown').innerHTML = '<div class="cd-num"></div>';
+      document.querySelector('#countdown .cd-num').textContent = T.hoy;
       return;
     }
     var d = Math.floor(diff/86400000),
@@ -479,13 +618,13 @@
     e.preventDefault();
     var form = this, btn = form.querySelector('.btn');
     var nombre = document.getElementById('nombre').value.trim();
-    if(!nombre){ alert('Poné tu nombre.'); return; }
-    btn.textContent = 'Enviando...'; btn.disabled = true;
+    if(!nombre){ alert(T.sinNombre); return; }
+    btn.textContent = T.enviando; btn.disabled = true;
     var asistencia = document.getElementById('asistencia').value,
         dieta = document.getElementById('dieta').value,
         mensaje = document.getElementById('mensaje').value;
     var done = function(){ form.style.display='none'; document.getElementById('form-ok').style.display='block'; },
-        fail = function(){ btn.textContent='Confirmar'; btn.disabled=false; alert('Hubo un error, probá de nuevo.'); };
+        fail = function(){ btn.textContent=T.confirmar; btn.disabled=false; alert(T.error); };
     if(SHEET_URL){
       fetch(SHEET_URL, {method:'POST', mode:'no-cors',
         body: JSON.stringify({nombre:nombre, asistencia:asistencia, dieta:dieta, mensaje:mensaje})
@@ -510,9 +649,10 @@
     var caras = [inner.children[0], inner.children[1]];
     var ciclo = null, paso = 0, pendiente = null;
 
-    if(flip.dataset.ciclo){
+    var extras = (LANG === 'en' && flip.dataset.cicloEn) || flip.dataset.ciclo;
+    if(extras){
       ciclo = caras.map(function(img){ return {src:img.getAttribute('src'), alt:img.alt}; })
-                   .concat(JSON.parse(flip.dataset.ciclo));
+                   .concat(JSON.parse(extras));
       ciclo.forEach(function(foto){ new Image().src = foto.src; }); // precarga
     }
 

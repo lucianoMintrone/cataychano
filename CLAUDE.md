@@ -15,6 +15,16 @@ Static wedding invitation site for Cata & Chano (24.10.2026, Buenos Aires). The 
 
 One page, sections in order: hero (postcard photo + date) → countdown → agenda (`#agenda`, ceremony/party cards with Google Maps links) → RSVP (`#rsvp`) → gifts (`#regalos`) → photo grid (`#fotos`) → music (`#musica`, Spotify embed + collaborator invite link) → footer. Design tokens live as CSS variables in `:root` (paper/ink/sea/sand/accent palette); fonts are Cormorant Garamond (body) and Space Mono (labels/numbers, via the `.mono` pattern).
 
+### English version (`?lang=en`)
+
+The page ships in Spanish. Opening it with `?lang=en` swaps every string to English; anything else (including no param) stays in Spanish. A discreet toggle in the footer links between the two.
+
+**Dates are localised, not just copied.** Spanish shows day.month.year (`24.10.2026`); English shows month.day.year (`10.24.2026`). This applies everywhere the date is rendered — the hero `.bigdate`, the footer line, the RSVP thank-you and the `og:description`. Any new date needs the same treatment.
+
+Translatable text is marked in the markup with `data-i18n` (textContent), `-html` (text containing markup), `-ph` (placeholder), `-alt`, `-aria`, `-title` and `-href`; the English strings live in the `I18N_EN` dictionary at the top of the inline script. Strings the script writes at runtime (countdown "¡Es hoy!", the RSVP button and its alerts) come from `TEXTOS[LANG]` instead. Adding copy means adding both the `data-i18n` attribute and its key.
+
+A small script in `<head>` sets `LANG` and hides `main` (`html.pre-i18n`) so English readers never see a flash of Spanish; the body script unhides it, with a 1.5s timeout as a fallback. Note that `og:` tags are rewritten client-side only, so link previews of `?lang=en` still show the Spanish description.
+
 ### RSVP flow (the only real logic)
 
 One form per person — guests with a +1 are asked to have them submit their own form. On submit, the script picks a backend:
